@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+
+description: Tap for one key, hold alone for another, hold with other keys for a layer
+
+compatible: "zmk,behavior-fn-ptt"
+
+include: zero_param.yaml
+
+properties:
+  layer:
+    type: int
+    required: true
+  tap-key:
+    type: int
+    required: true
+  hold-key:
+    type: int
+    required: true
+  cancel-key:
+    type: int
+    default: 0
+  tapping-term-ms:
+    type: int
+    default: 200

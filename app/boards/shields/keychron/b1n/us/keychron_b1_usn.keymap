@@ -185,6 +185,16 @@
         tapping-term-ms = <3000>;  // delay amount in ms
         bindings = <&bt_pair3>, <&bt_recon_3>;
     };
+    fn_ptt: fn_ptt {
+        compatible = "zmk,behavior-fn-ptt";
+        label = "FN_PTT";
+        #binding-cells = <0>;
+        layer = <1>;
+        tap-key = <F13>;
+        hold-key = <F16>;
+        cancel-key = <ESC>;
+        tapping-term-ms = <200>;
+    };
     uc:user_custom {
         compatible = "zmk,behavior-key-press";
         label ="user_custom";
@@ -202,7 +212,7 @@
         &kp TAB     &kp Q                   &kp W                   &kp E                               &kp R                   &kp T               &kp Y           &kp U           &kp I               &kp O       &kp P       &kp LBKT            &kp RBKT            &kp BSLH      
         &kp CLCK    &kp A                   &kp S                   &kp D                               &kp F                   &kp G               &kp H           &kp J           &kp K               &kp L       &kp SEMI    &kp SQT                         &kp RET                                         
         &kp LSHFT   &kp Z                   &kp X                   &kp C                               &kp V                   &kp B               &kp N           &kp M           &kp COMMA           &kp DOT     &kp FSLH                                    &kp RSHFT 
-        &kp LCTRL   &uc LALT                &uc LCMD                       &kp SPACE                                                                                                &uc RCMD            &mo 1       &kp LEFT    &kp UP              &kp DOWN            &kp RIGHT   
+        &kp LCTRL   &uc LALT                &uc LCMD                       &kp SPACE                                                                                                &uc RCMD            &fn_ptt      &kp LEFT    &kp UP              &kp DOWN            &kp RIGHT   
         &mo 2       &out OUT_BLE            &out OUT_24G            &out OUT_CHG                        &out OUT_CHGD 
             >;
         };
