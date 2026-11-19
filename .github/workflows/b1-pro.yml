@@ -1,0 +1,30 @@
+name: Build B1 Pro firmware
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/zmkfirmware/zmk-build-arm:3.2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up west workspace
+        run: |
+          git config --global --add safe.directory '*'
+          west init -l app
+          west update
+          west zephyr-export
+          git -C zephyr apply ../0001-esb-nrf-fix.patch
+      - name: Build
+        run: west build -s app -p -b keychron -- -DSHIELD=keychron_b1_usn
+      - name: Package for Keychron Launcher
+        run: python3 .github/package_dfu.py build/zephyr/zmk.hex keychron_b1_pro_us_fn_ptt.zip keychron_b1_pro_us_fn_ptt.uf2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: keychron_b1_pro_us_fn_ptt
+          path: |
+            keychron_b1_pro_us_fn_ptt.zip
+            keychron_b1_pro_us_fn_ptt.uf2
