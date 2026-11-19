@@ -1,0 +1,6 @@
+config EN_FIX_CAPS_ALT_DEL
+    bool
+
+config SHIELD_KEYCHRON_B1_US_N
+    def_bool $(shields_list_contains,keychron_b1_usn)
+    select EN_FIX_CAPS_ALT_DEL
