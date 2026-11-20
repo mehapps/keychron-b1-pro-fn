@@ -10,6 +10,18 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
+#ifdef NO_FN_PTT
+#define FN_KEY &mo 1
+#else
+#define FN_KEY &fn_ptt
+#endif
+
+#ifdef NO_FN_GLOBE
+#define GLB(key) &trans
+#else
+#define GLB(key) &gkp key
+#endif
+
 / {
     ZMK_MACRO(recover, bindings = <&out OUT_RECOVER>;)
     ZMK_MACRO(change, bindings = <&out OUT_FN>;)
@@ -222,7 +234,7 @@
         &kp TAB     &kp Q                   &kp W                   &kp E                               &kp R                   &kp T               &kp Y           &kp U           &kp I               &kp O       &kp P       &kp LBKT            &kp RBKT            &kp BSLH      
         &kp CLCK    &kp A                   &kp S                   &kp D                               &kp F                   &kp G               &kp H           &kp J           &kp K               &kp L       &kp SEMI    &kp SQT                         &kp RET                                         
         &kp LSHFT   &kp Z                   &kp X                   &kp C                               &kp V                   &kp B               &kp N           &kp M           &kp COMMA           &kp DOT     &kp FSLH                                    &kp RSHFT 
-        &kp LCTRL   &uc LALT                &uc LCMD                       &kp SPACE                                                                                                &uc RCMD            &fn_ptt      &kp LEFT    &kp UP              &kp DOWN            &kp RIGHT   
+        &kp LCTRL   &uc LALT                &uc LCMD                       &kp SPACE                                                                                                &uc RCMD            FN_KEY       &kp LEFT    &kp UP              &kp DOWN            &kp RIGHT   
         &mo 2       &out OUT_BLE            &out OUT_24G            &out OUT_CHG                        &out OUT_CHGD 
             >;
         };
@@ -231,9 +243,9 @@
         bindings = < 
         &trans      &kp F1                  &kp F2                  &kp F3                              &kp F4                  &kp F5              &kp F6          &kp F7          &kp F8              &kp F9      &kp F10     &kp F11             &kp F12             &trans    
         &trans      &bt_pair_0 0 0          &bt_pair_1 0 0          &bt_pair_2 0 0                      &bt_pair_3 0 0          &trans              &trans          &trans          &trans              &trans      &trans      &trans              &kp C_AC_SEARCH     &trans      
-        &trans      &gkp Q                  &gkp W                  &gkp E                              &gkp R                  &gkp T              &gkp Y          &gkp U          &kp INS             &gkp O      &gkp P      &trans              &trans              &uc LG(LS(N4))
-        &trans      &gkp A                  &gkp S                  &gkp D                              &gkp F                  &gkp G              &gkp H          &gkp J          &gkp K              &gkp L      &trans      &trans                      &trans                  
-        &trans      &gkp Z                  &gkp X                  &gkp C                              &gkp V                  &out OUT_BAT        &gkp N          &gkp M          &trans              &trans      &trans                                  &uc LC(LG(SPACE))
+        &trans      GLB(Q)                  GLB(W)                  GLB(E)                              GLB(R)                  GLB(T)              GLB(Y)          GLB(U)          &kp INS             GLB(O)      GLB(P)      &trans              &trans              &uc LG(LS(N4))
+        &trans      GLB(A)                  GLB(S)                  GLB(D)                              GLB(F)                  GLB(G)              GLB(H)          GLB(J)          GLB(K)              GLB(L)      &trans      &trans                      &trans                  
+        &trans      GLB(Z)                  GLB(X)                  GLB(C)                              GLB(V)                  &out OUT_BAT        GLB(N)          GLB(M)          &trans              &trans      &trans                                  &uc LC(LG(SPACE))
         &trans      &trans                  &trans                         &trans                                                                                                   &kp RCTRL           &trans        &kp HOME   &kp PG_UP   &kp PG_DN    &kp END  
         //
         &none       &none                   &none                   &none                               &none

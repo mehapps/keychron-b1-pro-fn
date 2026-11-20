@@ -9,6 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker.io/zmkfirmware/zmk-build-arm:3.2
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: both
+            flags: ""
+          - variant: wispr
+            flags: "-DNO_FN_GLOBE"
+          - variant: globe
+            flags: "-DNO_FN_PTT"
+          - variant: none
+            flags: "-DNO_FN_PTT;-DNO_FN_GLOBE"
     steps:
       - uses: actions/checkout@v4
       - name: Set up west workspace
@@ -19,12 +31,12 @@ jobs:
           west zephyr-export
           git -C zephyr apply ../0001-esb-nrf-fix.patch
       - name: Build
-        run: west build -s app -p -b keychron -- -DSHIELD=keychron_b1_usn
-      - name: Package for Keychron Launcher
-        run: python3 .github/package_dfu.py build/zephyr/zmk.hex keychron_b1_pro_us_fn_ptt.zip keychron_b1_pro_us_fn_ptt.uf2
+        run: west build -s app -p -b keychron -- -DSHIELD=keychron_b1_usn "-DDTS_EXTRA_CPPFLAGS=${{ matrix.flags }}"
+      - name: Package for the bootloader
+        run: python3 .github/package_dfu.py build/zephyr/zmk.hex keychron_b1_pro_us_${{ matrix.variant }}.zip keychron_b1_pro_us_${{ matrix.variant }}.uf2
       - uses: actions/upload-artifact@v4
         with:
-          name: keychron_b1_pro_us_fn_ptt
+          name: keychron_b1_pro_us_${{ matrix.variant }}
           path: |
-            keychron_b1_pro_us_fn_ptt.zip
-            keychron_b1_pro_us_fn_ptt.uf2
+            keychron_b1_pro_us_${{ matrix.variant }}.zip
+            keychron_b1_pro_us_${{ matrix.variant }}.uf2
