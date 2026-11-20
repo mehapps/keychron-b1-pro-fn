@@ -185,6 +185,16 @@
         tapping-term-ms = <3000>;  // delay amount in ms
         bindings = <&bt_pair3>, <&bt_recon_3>;
     };
+    ZMK_MACRO1(gkp,
+        wait-ms = <10>;
+        tap-ms = <10>;
+        bindings
+            = <&macro_press &kp GLOBE>
+            , <&macro_param_1to1 &macro_press &kp MACRO_PLACEHOLDER>
+            , <&macro_pause_for_release>
+            , <&macro_param_1to1 &macro_release &kp MACRO_PLACEHOLDER>
+            , <&macro_release &kp GLOBE>;
+    )
     fn_ptt: fn_ptt {
         compatible = "zmk,behavior-fn-ptt";
         label = "FN_PTT";
@@ -221,9 +231,9 @@
         bindings = < 
         &trans      &kp F1                  &kp F2                  &kp F3                              &kp F4                  &kp F5              &kp F6          &kp F7          &kp F8              &kp F9      &kp F10     &kp F11             &kp F12             &trans    
         &trans      &bt_pair_0 0 0          &bt_pair_1 0 0          &bt_pair_2 0 0                      &bt_pair_3 0 0          &trans              &trans          &trans          &trans              &trans      &trans      &trans              &kp C_AC_SEARCH     &trans      
-        &trans      &trans                  &trans                  &trans                              &trans                  &trans              &trans          &trans          &kp INS             &trans      &trans      &trans              &trans              &uc LG(LS(N4))
-        &trans      &trans                  &trans                  &trans                              &trans                  &trans              &trans          &trans          &trans              &trans      &trans      &trans                      &trans                  
-        &trans      &trans                  &trans                  &trans                              &trans                  &out OUT_BAT        &trans          &trans          &trans              &trans      &trans                                  &uc LC(LG(SPACE))
+        &trans      &gkp Q                  &gkp W                  &gkp E                              &gkp R                  &gkp T              &gkp Y          &gkp U          &kp INS             &gkp O      &gkp P      &trans              &trans              &uc LG(LS(N4))
+        &trans      &gkp A                  &gkp S                  &gkp D                              &gkp F                  &gkp G              &gkp H          &gkp J          &gkp K              &gkp L      &trans      &trans                      &trans                  
+        &trans      &gkp Z                  &gkp X                  &gkp C                              &gkp V                  &out OUT_BAT        &gkp N          &gkp M          &trans              &trans      &trans                                  &uc LC(LG(SPACE))
         &trans      &trans                  &trans                         &trans                                                                                                   &kp RCTRL           &trans        &kp HOME   &kp PG_UP   &kp PG_DN    &kp END  
         //
         &none       &none                   &none                   &none                               &none
